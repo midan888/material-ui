@@ -71,11 +71,11 @@ class Snackbar extends Component {
      */
     message: PropTypes.node.isRequired,
     /**
-     * Fired when the action button is touchtapped.
+     * Fired when the action button is clicked.
      *
      * @param {object} event Action button event.
      */
-    onActionTouchTap: PropTypes.func,
+    onActionClick: PropTypes.func,
     /**
      * Fired when the `Snackbar` is requested to be closed by a click outside the `Snackbar`, or after the
      * `autoHideDuration` timer expires.
@@ -102,6 +102,11 @@ class Snackbar extends Component {
   static contextTypes = {
     muiTheme: PropTypes.object.isRequired,
   };
+
+  static reasons = {
+    CLICKAWAY: 'clickaway',
+    TIMEOUT: 'timeout'
+  }
 
   componentWillMount() {
     this.setState({
@@ -168,7 +173,7 @@ class Snackbar extends Component {
     }
 
     if (this.props.open !== null && this.props.onRequestClose) {
-      this.props.onRequestClose('clickaway');
+      this.props.onRequestClose(Snackbar.reasons.CLICKAWAY);
     } else {
       this.setState({open: false});
     }
@@ -182,7 +187,7 @@ class Snackbar extends Component {
       clearTimeout(this.timerAutoHideId);
       this.timerAutoHideId = setTimeout(() => {
         if (this.props.open !== null && this.props.onRequestClose) {
-          this.props.onRequestClose('timeout');
+          this.props.onRequestClose(Snackbar.reasons.TIMEOUT);
         } else {
           this.setState({open: false});
         }
@@ -204,7 +209,7 @@ class Snackbar extends Component {
       bodyStyle,
       message: messageProp, // eslint-disable-line no-unused-vars
       onRequestClose, // eslint-disable-line no-unused-vars
-      onActionTouchTap,
+      onActionClick,
       style,
       ...other
     } = this.props;
@@ -226,7 +231,7 @@ class Snackbar extends Component {
             contentStyle={contentStyle}
             message={message}
             open={open}
-            onActionTouchTap={onActionTouchTap}
+            onActionClick={onActionClick}
             style={bodyStyle}
           />
         </div>

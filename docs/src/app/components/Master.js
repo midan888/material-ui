@@ -66,14 +66,18 @@ class Master extends Component {
       v1: {
         height: 40,
         backgroundColor: '#2196f3',
-        display: 'flex',
         color: '#fff',
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'fixed',
         top: 0,
         width: '100%',
         zIndex: this.state.muiTheme.zIndex.appBar + 1,
+      },
+      v1Link: {
+        color: '#fff',
+        textDecoration: 'underline',
       },
       v1Spacer: {
         height: 40,
@@ -132,7 +136,7 @@ class Master extends Component {
     return styles;
   }
 
-  handleTouchTapLeftIconButton = () => {
+  handleClickLeftIconButton = () => {
     this.setState({
       navDrawerOpen: !this.state.navDrawerOpen,
     });
@@ -199,15 +203,26 @@ class Master extends Component {
     return (
       <div>
         <Title render="Material-UI" />
-        <div style={prepareStyles(styles.v1Spacer)}>
-          <a style={prepareStyles(styles.v1)} href="https://material-ui-next.com/">
+        <div style={prepareStyles(styles.v1)}>
+          Aww yeah, &nbsp;
+          <a style={prepareStyles(styles.v1Link)} href="https://material-ui-next.com/">
             <span>
-              Aww yeah, Material-UI v1 is coming!
+              Material-UI v1
             </span>
           </a>
+          &nbsp; is coming! We &nbsp;
+          <a
+            style={prepareStyles(styles.v1Link)}
+            href="https://github.com/mui-org/material-ui#should-i-start-with-v1-beta"
+          >
+            <span>
+              recommend it
+            </span>
+          </a>
+          &nbsp; for new projects.
         </div>
         <AppBar
-          onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
+          onLeftIconButtonClick={this.handleClickLeftIconButton}
           title={title}
           zDepth={0}
           iconElementRight={

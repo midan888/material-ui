@@ -47,6 +47,10 @@ class Tabs extends Component {
      */
     inkBarStyle: PropTypes.object,
     /**
+     * Override the inline-styles of the InkBar container.
+     */
+    inkBarContainerStyle: PropTypes.object,
+    /**
      * Called when the selected value change.
      */
     onChange: PropTypes.func,
@@ -146,7 +150,7 @@ class Tabs extends Component {
     return selectedIndex;
   }
 
-  handleTabTouchTap = (value, event, tab) => {
+  handleTabClick = (value, event, tab) => {
     const valueLink = this.getValueLink(this.props);
     const index = tab.props.index;
 
@@ -174,6 +178,7 @@ class Tabs extends Component {
       contentContainerStyle,
       initialSelectedIndex, // eslint-disable-line no-unused-vars
       inkBarStyle,
+      inkBarContainerStyle,
       onChange, // eslint-disable-line no-unused-vars
       style,
       tabItemContainerStyle,
@@ -211,7 +216,7 @@ class Tabs extends Component {
         index: index,
         selected: this.getSelected(tab, index),
         width: `${width}%`,
-        onClick: this.handleTabTouchTap,
+        onClick: this.handleTabClick,
       });
     });
 
@@ -233,7 +238,7 @@ class Tabs extends Component {
         <div style={prepareStyles(Object.assign(styles.tabItemContainer, tabItemContainerStyle))}>
           {tabs}
         </div>
-        <div style={{width: inkBarContainerWidth}}>
+        <div style={prepareStyles(Object.assign({width: inkBarContainerWidth}, inkBarContainerStyle))}>
           {inkBar}
         </div>
         <div
